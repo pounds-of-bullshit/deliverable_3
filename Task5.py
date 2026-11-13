@@ -28,3 +28,22 @@ winner = hero.name if hero.is_alive else enemy.name
 print(f"Winner: {winner}")
 print(f"Final HP: {hero.name} = {hero.hp}, {enemy.name} = {enemy.hp}")
 print(f"Remaining mana: {enemy.mana}")
+
+# Armed
+# Uses the same random rolls each time
+random.seed(123)
+
+sword = Weapon(name="Sword", damage_dice=Dice(sides=10))
+wand = Weapon(name="Wand", damage_dice=Dice(sides=5))
+
+# The hero and the enemy each equipped with weapons
+hero = Warrior(name="Aria", hp_max=100, damage=10, armor=5, weapon=sword)
+enemy = Mage(name="Kura", hp_max=100, damage=10, mana=5, weapon=wand)
+
+battle = Battle(hero=hero, enemy=enemy)
+battle.simulate_battle()
+
+winner = hero.name if hero.is_alive else enemy.name
+print(f"Winner: {winner}")
+print(f"Final HP: {hero.name} = {hero.hp}, {enemy.name} = {enemy.hp}")
+print(f"Remaining mana: {enemy.mana}")
