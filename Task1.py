@@ -1,8 +1,7 @@
 # code for task 1
+from character import Character
 
 # A demonstration of the Character class
-
-from character import Character
 
 # Creates an example character without a weapon
 ex = Character(name="Aria", hp_max=100, damage=10)
