@@ -27,3 +27,8 @@ print(f"HP after excessive healing: {ex.hp}")
 ex.take_damage(200)
 print(f"HP after excessive damage: {ex.hp}")
 print(f"Alive: {ex.is_alive}")
+
+# A demonstration of the special methods
+
+print(repr(ex))
+print(str(ex))
