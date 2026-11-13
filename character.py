@@ -71,3 +71,68 @@ class Character:
         """Returns True if the character is alive, otherwise False"""
         # Checks whether the HP is above 0
         return self._hp > 0
+
+# The subclasses
+class Warrior(Character):
+    """Represents a defensive specialist character in the RPG"""
+    
+    def __init__(self, name: str, hp_max: int = 100, damage: int = 10, weapon: Weapon | None = None, armor: int = 5) -> None:
+            """
+            Initialise the Warrior
+        
+            Args:
+                name (str): The name of the warrior
+                hp_max (int): Max hit points (default = 100)
+                damage (int): Damage delt when warrior attacks (default = 10)
+                weapon (Weapon | None): The weapon the warrior wields (default = None)
+                armor (int): Armor value that reduces damage (default = 5)
+            """
+            # Reuses attributes from the parent class
+            super().__init__(name, hp_max, damage, weapon)
+            # Stores the armor value
+            self.armor = armor
+
+    def take_damage(self, amount: int) -> None:
+        """Reduces incoming damage by armor before updating HP"""
+        reduced_damage = max(amount - self.armor, 0)
+
+        # Applies the remaining damage to HP
+        super().take_damage(reduced_damage)
+
+class Mage(Character):
+    """Represents a resource-based attacker character in the RPG"""
+
+    def __init__(self, name: str, hp_max: int = 100, damage: int = 10, weapon: Weapon | None = None, mana: int = 30, mana_max: int = 30) -> None:
+                """
+                Initialise the Mage
+            
+                Args:
+                    name (str): The name of the mage
+                    hp_max (int): Max hit points (default = 100)
+                    damage (int): Damage delt when warrior attacks (default = 10)
+                    weapon (Weapon | None): The weapon the warrior wields (default = None)
+                    mana (int): The mage's current mana (default = 30)
+                    mana_max (int): Max mana points (default = 30)
+                """
+                super().__init__(name, hp_max, damage, weapon)
+                # Stores the maximum mana and keeps starting mana within its limits
+                self.mana_max = mana_max
+                self.mana = min(max(mana, 0), self.mana_max)
+
+    def attack(self, target: Character) -> None:
+            """Attacks with magic or uses a base attack to restore mana"""
+            # Checks whether there's enough mana
+            if self.mana >= 10:
+                 # Spends 10 mana on the spell
+                 self.mana -= 10
+
+                 # Deals double the amount of base damage with magic
+                 target.take_damage(self.damage * 2)
+
+            else:
+                 # If low on mana use a normal attack
+                 super().attack(target)
+
+                 # Restores 5 mana without going over the maximum
+                 self.mana = min(self.mana + 5, self.mana_max)
+        
