@@ -1,6 +1,7 @@
 # code for task 1
 
 # A demonstration of the Character class
+
 from character import Character
 
 # Creates an example character without a weapon
